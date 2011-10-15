@@ -1,0 +1,41 @@
+include /home/barosl/.java-keys/config.mk
+include config.mk
+
+SRC_DIR = src
+BIN_DIR = bin
+
+SRCES = $(shell cd $(SRC_DIR) && find)
+JAVAS = $(filter %.java, $(SRCES))
+CLSES = $(JAVAS:%.java=%.class)
+CLSES_BIN = $(CLSES:%=$(BIN_DIR)/%)
+
+.PHONY: all clses c clean r run jar re
+
+DEFAULT ?= jar
+all: $(DEFAULT)
+
+clses: $(CLSES_BIN)
+
+c: clean
+clean:
+	rm -rf $(BIN_DIR)/*
+
+r: run
+run: jar
+	@java -jar $(BIN_DIR)/$(NAME).jar
+
+jar: $(BIN_DIR)/$(NAME).jar
+
+re:
+	@+make clean MAKELEVEL=0
+	@+make all MAKELEVEL=0
+
+.SECONDARY: $(CLSES_BIN)
+%.jar: $(CLSES_BIN)
+	cd $(BIN_DIR) && jar cmf ../manifest ../$@ $(CLSES)
+ifneq ($(strip $(SIGN_JAR)),)
+	jarsigner -keystore $(KEY_STORE) $(KEY_FLAGS) $@ $(KEY_ALIAS)
+endif
+
+bin/%.class: src/%.java
+	javac -d $(BIN_DIR) -sourcepath $(SRC_DIR) $(JFLAGS) $<
