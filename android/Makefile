@@ -4,7 +4,7 @@ include config.mk
 .PHONY: default release install bin/$(name)-unsigned.apk jni c clean r run re
 
 default ?= release
-default: $(default)
+all: $(default)
 
 release: bin/$(name)-release.apk
 
@@ -31,4 +31,6 @@ r: run
 run: install
 	adb shell am start -n $(main)
 
-re: clean default
+re:
+	@+$(MAKE) clean MAKELEVEL=0
+	@+$(MAKE) all MAKELEVEL=0
