@@ -31,7 +31,7 @@ re:
 	@+make all MAKELEVEL=0
 
 .SECONDARY: $(CLSES_BIN)
-%.jar: $(CLSES_BIN)
+%.jar: $(CLSES_BIN) manifest
 	cd $(BIN_DIR) && jar cmf ../manifest ../$@ $(CLSES)
 ifneq ($(strip $(SIGN_JAR)),)
 	jarsigner -keystore $(KEY_STORE) $(KEY_FLAGS) $@ $(KEY_ALIAS)
