@@ -1,3 +1,3 @@
-name := inkl_cast
-main := barosl.inkl_cast/.ChannelList
+name := hello_world
+main := com.barosl.hello_world/.Main
 default := release
