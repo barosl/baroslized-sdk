@@ -1,23 +1,23 @@
-include /home/barosl/.sdk/baroslized-android/global-config.mk
+include /home/barosl/.sdk/baroslized-sdk/android/global-config.mk
 include config.mk
 
-.PHONY: default release install bin/$(name)-unsigned.apk jni c clean r run re
+.PHONY: default release install bin/$(NAME)-unsigned.apk jni c clean r run re
 
 default ?= release
 all: $(default)
 
-release: bin/$(name)-release.apk
+release: bin/$(NAME)-release.apk
 
 install: release
-	adb install -r bin/$(name)-release.apk
+	adb install -r bin/$(NAME)-release.apk
 
-bin/$(name)-release.apk: bin/$(name)-unaligned.apk
+bin/$(NAME)-release.apk: bin/$(NAME)-unaligned.apk
 	zipalign -f 4 '$<' '$@'
 
-bin/$(name)-unaligned.apk: bin/$(name)-unsigned.apk
-	jarsigner -keystore '$(key_store)' -signedjar '$@' $(key_flags) '$<' '$(key_alias)'
+bin/$(NAME)-unaligned.apk: bin/$(NAME)-unsigned.apk
+	jarsigner -keystore '$(KEY_STORE)' -signedjar '$@' $(KEY_FLAGS) '$<' '$(KEY_ALIAS)'
 
-bin/$(name)-unsigned.apk:
+bin/$(NAME)-unsigned.apk:
 	ant release
 
 jni:
@@ -29,7 +29,7 @@ clean:
 
 r: run
 run: install
-	adb shell am start -n $(main)
+	adb shell am start -n $(MAIN)
 
 re:
 	@+$(MAKE) clean MAKELEVEL=0

@@ -1,3 +1,3 @@
-name := hello_world
-main := com.barosl.hello_world/.Main
-default := release
+NAME := hello_world
+MAIN := com.barosl.hello_world/.Main
+DEFAULT := release
