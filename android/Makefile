@@ -1,3 +1,4 @@
+include /home/barosl/.sdk/baroslized-android/global-config.mk
 include config.mk
 
 .PHONY: default release install bin/$(name)-unsigned.apk jni clean
