@@ -32,7 +32,7 @@ re:
 
 .SECONDARY: $(CLSES_BIN)
 %.jar: $(CLSES_BIN) manifest
-	cd $(BIN_DIR) && jar cmf ../manifest ../$@ $(CLSES)
+	cd $(BIN_DIR) && find -name '*.class' -print0 | xargs -0 jar cmf ../manifest ../$@
 ifneq ($(strip $(SIGN_JAR)),)
 	jarsigner -keystore $(KEY_STORE) $(KEY_FLAGS) $@ $(KEY_ALIAS)
 endif
