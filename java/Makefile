@@ -22,7 +22,7 @@ clean:
 
 r: run
 run: jar
-	@java -jar $(BIN_DIR)/$(NAME).jar
+	@java -cp $$CLASSPATH:$(BIN_DIR)/$(NAME).jar $(MAIN)
 
 jar: $(BIN_DIR)/$(NAME).jar
 
