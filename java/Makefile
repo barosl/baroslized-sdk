@@ -9,12 +9,12 @@ JAVAS = $(filter %.java, $(SRCES))
 CLSES = $(JAVAS:%.java=%.class)
 CLSES_BIN = $(CLSES:%=$(BIN_DIR)/%)
 
-.PHONY: all clses c clean r run jar re
+.PHONY: all compile c clean r run jar re
 
 DEFAULT ?= jar
 all: $(DEFAULT)
 
-clses: $(CLSES_BIN)
+compile: $(CLSES_BIN)
 
 c: clean
 clean:
