@@ -39,4 +39,5 @@ ifneq ($(strip $(SIGN_JAR)),)
 endif
 
 bin/%.class: src/%.java
+	@mkdir -p $(BIN_DIR)
 	javac -d $(BIN_DIR) -sourcepath $(SRC_DIR) $(JFLAGS) $<
